@@ -1,0 +1,68 @@
+<div class ='header'>
+<h1>Welcome to the Fake Burgers</h1>
+<img src="http://www.pngmart.com/files/1/Yummy-Burger-PNG.png">
+</div>
+<div class='to-eat'>
+<h2>Here are some virtual burgers you can eat:</h2>
+
+
+  {{#each burgers}}
+    {{#unless this.hungry}}
+<div class = 'not-eaten'>
+        {{this.burger}}
+
+        <form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="hungry" value="true">
+          <button type="submit">Devour It</button>
+        </form>
+{{!--         <form action="burgers/delete/{{this.id}}?_method=DELETE" method="POST">
+         <input type="hidden" name="id" value="{{this.id}}">
+        <button type="submit">DELETE!</button> --}}
+        
+</div>
+        </form>
+    {{/unless}}
+  {{/each}}
+</div>
+
+<div class ='done-eat'>
+
+<h2>Here are some virtual burgers you've already eaten:</h2>
+
+
+  {{#each burgers}}
+    {{#if this.hungry}}
+    <div class= 'eaten'>
+        {{this.burger}}
+
+        <form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="hungry" value="false">
+          <button type="submit">Puke it up!</button>
+        </form>
+        </div>
+{{!-- 
+        {{> burgers/delete-burger}} --}}
+    {{/if}}
+  {{/each}}
+
+</div>
+
+<div class ='add-burg'>
+
+<h2 class='add'>Add a Virtual Burger</h2>
+<form class="create-update-form" action="burgers/create" method="POST">
+
+  <div class="form-group">
+    <label for="burg">Burger Name:</label>
+    <input type="text" name="burger" value=" ">
+  </div>
+    <div class="form-group">
+    <label for="hungry">Have you eaten this burger already?</label><br>
+    <input type="radio" name="hungry" value="1" checked> Nope, I'm hungry!<br>
+    <input type="radio" name="hungry" value="0"> Yes, I'm full.
+  </div>
+
+
+  <button type="submit">Add Burger</button>
+</form>
+</div>
